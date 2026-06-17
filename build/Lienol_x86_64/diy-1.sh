@@ -97,7 +97,7 @@ git clone https://github.com/immortalwrt-collections/openwrt-gowebdav package/di
 # 这里的逻辑应该是在最开始就让它加载在feeds conf的默认里面，不折腾了~~~~ 新编译的会自动崩溃！
 git clone https://github.com/kenzok8/openwrt-packages package/kenzo
 git clone https://github.com/kenzok8/small package/small
-git clone https://github.com/yichya/luci-app-xray package/luci_app_xray
+# git clone https://github.com/yichya/luci-app-xray package/luci_app_xray
 
 ## sed -i '$a src-git kenzo https://github.com/kenzok8/openwrt-packages' feeds.conf.default
 ## sed -i '$a src-git small https://github.com/kenzok8/small' feeds.conf.default
