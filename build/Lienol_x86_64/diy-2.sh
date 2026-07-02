@@ -38,9 +38,9 @@ sed -i '/include \$(INCLUDE_DIR)\/package.mk/a TARGET_CFLAGS += -mno-mips16 -mno
 # find . -name 'UnblockNeteaseMusic-Go' -o -name 'UnblockNeteaseMusic' -o -name 'luci-app-unblockmusic' | xargs -i rm -rf {}
 
 # 这个是xray 1.6.4 锁死版, 这个替换是没有问题的
-# pushd package/small/xray-core
-# git reset --hard 8abfcaf24ee8e19c5b838dd355515aad91c6af85
-# popd
+pushd package/small/xray-core
+git reset --hard 8abfcaf24ee8e19c5b838dd355515aad91c6af85
+popd
 
 # 更换golang版本，因为19.07自带golang无法编译xray的新版本；发现同一个配置编译出来体积一样但是这个慢了30分钟，所以保留这种此种替换写法
 # pushd feeds/packages/lang
