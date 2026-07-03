@@ -14,7 +14,7 @@ sed -i "s/OpenWrt /kkitown build $(TZ=UTC-8 date "+%Y.%m.%d") @ OpenWrt /g" pack
 # 修改 argon 为默认主题,可根据你喜欢的修改成其他的（不选择那些会自动改变为默认主题的主题才有效果）
 sed -i 's/luci-theme-bootstrap/luci-theme-design/g' feeds/luci/collections/luci/Makefile
 
-#修改报错
+#修改报错 这是claude给的 只适用于mips
 sed -i '/include \$(INCLUDE_DIR)\/package.mk/a TARGET_CFLAGS += -mno-mips16 -mno-interlink-mips16' package/small/dns2tcp/Makefile
 
 # 修改内核版本
