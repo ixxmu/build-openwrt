@@ -38,6 +38,11 @@ sed -i '/include \$(INCLUDE_DIR)\/package.mk/a TARGET_CFLAGS += -mno-mips16 -mno
 # find . -name 'UnblockNeteaseMusic-Go' -o -name 'UnblockNeteaseMusic' -o -name 'luci-app-unblockmusic' | xargs -i rm -rf {}
 
 # 这个是xray 1.6.4 锁死版, 这个替换是没有问题的
+# pushd package/small/xray-core
+# git reset --hard 8abfcaf24ee8e19c5b838dd355515aad91c6af85
+# popd
+
+这个是xray 1.7.5 锁死版
 pushd package/small/xray-core
 git reset --hard 8abfcaf24ee8e19c5b838dd355515aad91c6af85
 popd
