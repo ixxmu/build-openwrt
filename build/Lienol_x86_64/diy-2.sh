@@ -47,6 +47,30 @@ pushd package/small
 git checkout 9181de46821a4ce699f30d705d98d612ac26e572 -- xray-core
 popd
 
+# ---- 强制 strip xray,解决 33M 裸二进制问题 ----
+XRAY_MK=package/small/xray-core/Makefile
+
+echo "===== 改之前的 Makefile ====="
+cat $XRAY_MK
+
+# 清掉可能已有的定义,再插入
+sed -i '/^GO_PKG_LDFLAGS/d' $XRAY_MK
+sed -i '/^GO_PKG_LDFLAGS_X/d' $XRAY_MK
+sed -i '/include \$(INCLUDE_DIR)\/package.mk/i GO_PKG_LDFLAGS:=-s -w' $XRAY_MK
+
+echo "===== 改之后的 Makefile ====="
+cat $XRAY_MK
+
+# ---- 兜底:编完直接 strip 二进制 ----
+if ! grep -q 'Build/Compile' $XRAY_MK; then
+sed -i '/^define Package\/xray-core\/install/i \
+define Build/Compile\
+\t$(call GoPackage/Build/Compile)\
+\t-$(TARGET_CROSS)strip --strip-all $(PKG_INSTALL_DIR)/usr/bin/* 2>/dev/null\
+endef\
+' $XRAY_MK
+fi
+
 # 更换golang版本，因为19.07自带golang无法编译xray的新版本；发现同一个配置编译出来体积一样但是这个慢了30分钟，所以保留这种此种替换写法
 # pushd feeds/packages/lang
 # rm -fr golang && svn co https://github.com/openwrt/packages/trunk/lang/golang
