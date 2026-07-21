@@ -43,8 +43,8 @@ sed -i '/include \$(INCLUDE_DIR)\/package.mk/a TARGET_CFLAGS += -mno-mips16 -mno
 # popd
 
 这个是xray 1.7.5 锁死版
-pushd package/small/xray-core
-git reset --hard 9181de46821a4ce699f30d705d98d612ac26e572
+pushd package/small
+git checkout 9181de46821a4ce699f30d705d98d612ac26e572 -- xray-core
 popd
 
 # 更换golang版本，因为19.07自带golang无法编译xray的新版本；发现同一个配置编译出来体积一样但是这个慢了30分钟，所以保留这种此种替换写法
