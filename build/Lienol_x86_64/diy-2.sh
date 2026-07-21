@@ -43,8 +43,9 @@ sed -i '/include \$(INCLUDE_DIR)\/package.mk/a TARGET_CFLAGS += -mno-mips16 -mno
 # popd
 
 # 这个是xray 1.7.5 锁死版
-pushd package/small
-git checkout 9181de46821a4ce699f30d705d98d612ac26e572 -- xray-core
+# 这个是xray 1.7.5 锁死版
+pushd package/small/xray-core
+git reset --hard 9181de46821a4ce699f30d705d98d612ac26e572
 popd
 
 XRAY_MK=package/small/xray-core/Makefile
