@@ -204,6 +204,19 @@ jobs:
          grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > NAME1
          [ -s NAME1 ] && echo "NAME1=$(cat NAME1)" >> $GITHUB_ENV
         fi
+    - name: 体积诊断
+      if: always()
+      run: |
+        cd openwrt
+        echo "===== rootfs 内容 TOP40 ====="
+        du -ah build_dir/target-*/root-ramips/ | sort -rh | head -40
+        echo "===== geodata ====="
+        ls -lh build_dir/target-*/root-ramips/usr/share/xray/ 2>/dev/null
+        ls -lh build_dir/target-*/root-ramips/usr/share/v2ray/ 2>/dev/null
+        echo "===== 镜像精确字节 ====="
+        ls -l bin/targets/ramips/mt7620/*.bin
+        echo "===== 生效的 config ====="
+        grep -E 'coreutils|ip-full|ip-tiny|geoip|geosite|turboacc' .config 
     - name: 上传bin文件夹(固件+ipk)在github空间
       uses: actions/upload-artifact@v4
       if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
