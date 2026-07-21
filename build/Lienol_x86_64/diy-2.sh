@@ -42,7 +42,7 @@ sed -i '/include \$(INCLUDE_DIR)\/package.mk/a TARGET_CFLAGS += -mno-mips16 -mno
 # git reset --hard 8abfcaf24ee8e19c5b838dd355515aad91c6af85
 # popd
 
-这个是xray 1.7.5 锁死版
+# 这个是xray 1.7.5 锁死版
 pushd package/small
 git checkout 9181de46821a4ce699f30d705d98d612ac26e572 -- xray-core
 popd
