@@ -208,21 +208,22 @@ jobs:
       if: always()
       run: |
         cd openwrt
-        echo "===== rootfs 内容 TOP40 ====="
-        du -ah build_dir/target-*/root-ramips/ | sort -rh | head -40
+        echo "===== xray 二进制信息 ====="
+        file build_dir/target-*/root-ramips/usr/bin/xray || echo "找不到 xray"
+        ls -l build_dir/target-*/root-ramips/usr/bin/xray || true
+        echo
         echo "===== geodata ====="
-        ls -lh build_dir/target-*/root-ramips/usr/share/xray/ 2>/dev/null
-        ls -lh build_dir/target-*/root-ramips/usr/share/v2ray/ 2>/dev/null
+        ls -lh build_dir/target-*/root-ramips/usr/share/xray/ 2>/dev/null || echo "无 xray geodata"
+        ls -lh build_dir/target-*/root-ramips/usr/share/v2ray/ 2>/dev/null || echo "无 v2ray geodata"
+        echo
+        echo "===== rootfs TOP30 ====="
+        du -ah build_dir/target-*/root-ramips/ 2>/dev/null | sort -rh | head -30 || true
+        echo
         echo "===== 镜像精确字节 ====="
-        ls -l bin/targets/ramips/mt7620/*.bin
+        ls -l bin/targets/ramips/mt7620/*.bin || true
+        echo
         echo "===== 生效的 config ====="
-        grep -E 'coreutils|ip-full|ip-tiny|geoip|geosite|turboacc' .config 
-    - name: 上传bin文件夹(固件+ipk)在github空间
-      uses: actions/upload-artifact@v4
-      if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
-      with:
-        name: OpenWrt-bin-${{ env.NAME2 }}${{ env.NAME1 }}_${{ env.date }}
-        path: openwrt/bin
+        grep -E 'coreutils|ip-full|ip-tiny|geoip|geosite|turboacc|libelf' .config || true
 
     - name: 编译N1机型时,打包（N1、微加云、贝壳云、我家云、S9xxx）固件
       run: |
