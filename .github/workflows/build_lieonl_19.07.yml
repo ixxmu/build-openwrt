@@ -224,6 +224,7 @@ jobs:
         echo
         echo "===== 生效的 config ====="
         grep -E 'coreutils|ip-full|ip-tiny|geoip|geosite|turboacc|libelf' .config || true
+        exit 0
 
     - name: 编译N1机型时,打包（N1、微加云、贝壳云、我家云、S9xxx）固件
       run: |
