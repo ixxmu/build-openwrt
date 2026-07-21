@@ -74,6 +74,9 @@ rm -rf feeds/smpackage/luci-theme-design && git clone -b js --single-branch http
 # sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/Makefile
 # sed -i "s/%D %V, %C/openwrt $(date +'%m.%d') by kenzo/g" package/base-files/files/etc/banner
 
+# 在 diy2 里,让 ssr-plus 不再依赖 geodata
+sed -i 's/+v2ray-geoip //g; s/+v2ray-geosite //g' package/small/luci-app-ssr-plus/Makefile
+
 list="\
   autosamba                ddns-scripts_aliyun             ddns-scripts-cloudflare ddns-scripts_dnspod \
   luci-app-accesscontrol   luci-app-adbyby-plus            luci-app-arpbind        luci-app-autoreboot \
